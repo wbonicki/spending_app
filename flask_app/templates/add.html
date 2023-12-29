@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Main page{% endblock %}
+
+{% block content %}
+
+<a href="/add_new_category" style="margin-right: 5px;">Add new category</a>
+<a href="/remove_existing_category" style="margin-right: 5px;">Remove existing category</a>
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.main_category.label }}<br>
+        <select id="{{ form.main_category.id }}" name="{{ form.main_category.name }}">
+            {% for value, label in form.main_category.choices %}
+              <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
+
+    </p>
+    <p>
+        {{ form.subcategory.label }}<br>
+        <select id="{{ form.subcategory.id }}" name="{{ form.subcategory.name }}">
+            {% for value, label in form.subcategory.choices %}
+              <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
+    </p>
+    <p>
+        {{ form.price.label }}<br>
+        {{ form.price(size=16)}}
+        {% if form.price.errors %}
+            {% for error in form.price.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        {% endif%}
+    </p>
+    <p>
+        {{ form.date.label }}<br>
+        {{ form.date(size=16)}}
+
+    </p>
+    <p>{{ form.submit() }}</p>
+    
+</form>
+{% endblock %}

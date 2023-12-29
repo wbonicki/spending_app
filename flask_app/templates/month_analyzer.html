@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Spending analyzer{% endblock %}
+
+{% block content %}
+    <hr>
+    <h3 class="mt-4">Spending summary for {{ year }} - {{ month }}</h3>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+            {% for grouped_spending_category in grouped_spendings %}
+                <th> {{grouped_spending_category}}</th>
+            {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for subcategory_with_price in grouped_spendings.values() %}
+                    <td>
+                    {% for one_element in subcategory_with_price %}
+                        {{one_element[0]}}: {{one_element[1]}} <br>
+                    {% endfor %}
+                    </td>
+                {% endfor %}                
+            </tr>
+        </tbody>
+
+    </table>
+
+{% endblock %}

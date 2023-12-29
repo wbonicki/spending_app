@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Remove category{% endblock %}
+{% block content %}
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.category_name.label }}<br>
+        <select id="{{ form.category_name.id }}" name="{{ form.category_name.name }}">
+            {% for value, label in form.category_name.choices %}
+              <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
+    </p>
+    <p>{{ form.submit() }}</p>
+    
+</form>
+{% endblock %}

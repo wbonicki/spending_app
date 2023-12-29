@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Spending analyzer{% endblock %}
+
+{% block content %}
+    <a href="/remove_spending" style="margin-right: 5px;">Remove spending (by spending ID)</a>
+    <hr>
+    Select year and month to group spendings <br>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        {{ form.year.label }}
+        <select id="{{ form.year.id }}" name="{{ form.year.name }}">
+            {% for value, label in form.year.choices %}
+            <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        {{ form.month.label }}
+        <select id="{{ form.month.id }}" name="{{ form.month.name }}">
+            {% for value, label in form.month.choices %}
+            <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        {{ form.submit() }}
+    </form>
+    <br>
+    <hr>
+    <style>
+        table {
+            width: 80%;
+        }
+
+        th, td {
+            text-align: center;
+        }
+    </style>
+    <table>
+        <thead>
+            <tr>
+                <th>Spending ID</th>
+                <th>Spending Date</th>
+                <th>Spending Main Category</th>
+                <th>Spending Subcategory</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for spending in all_spendings %}
+            <tr>
+                <td>{{ spending.id }} </td>
+                <td>{{ spending.date }} </td>
+                <td>{{ spending.main_category }} </td>
+                <td>{{ spending.subcategory }} </td>
+                <td>{{ spending.price }} </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

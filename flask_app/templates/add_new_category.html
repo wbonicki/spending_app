@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Add new category{% endblock %}
+{% block content %}
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.category_type.label }}<br>
+        <select id="{{ form.category_type.id }}" name="{{ form.category_type.name }}">
+            {% for value, label in form.category_type.choices %}
+              <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
+
+    </p>
+    <p>
+        {{ form.category_name.label }}<br>
+        {{ form.category_name(size=16)}}
+        {% if form.category_name.errors %}
+        {% for error in form.category_name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    {% endif%}
+    </p>
+    <p>{{ form.submit() }}</p>
+    
+</form>
+{% endblock %}

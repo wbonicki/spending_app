@@ -42,7 +42,7 @@ Then, open browser and go to localhost:5001
 
 ## 3. Usage of the application
 
-The navigation bar provides three links. The "Add new spending" allows users to add a new spending entry and also provides the ability to add a new main category or remove an existing category.
+The navigation bar provides three links. The "Add new spending" allows users to add a new spending entry and also provides the ability to add a new category or remove an existing category.
 
 ![alt text](https://raw.githubusercontent.com/wbonicki/spending_app/main/screens/adding_new_spending.png)
 

@@ -2,13 +2,13 @@
 
 ## Description
 
-The main goal of the application is to learn and organize my knowledge about software design, the Flask framework, SQLAlchemy, and the Docker Compose tool. __Frontend issues were not taken care of as they were not a goal of this project.__ The application is still under a development and new features are planned to be added.
+The main goal of the application is to learn and organize my knowledge about software design, the Flask framework, SQLAlchemy, and the Docker Compose tool. __Frontend issues were not addressed as they were not a goal of this project.__ The application is still under a development and new features are planned to be added.
 
-The application is designed for saving  and analyzing user spendings.
+The application is designed for saving and analyzing user spendings.
 
 ## 1. Runnning the application on Docker
 
-Download spending-app directory (e.g. using git clone) and execute the following commmands:
+Download spending-app directory (e.g. using git clone) and execute the following commands:
 
 `cd spending-app/docker-compose`
 
@@ -23,14 +23,18 @@ The application will be accessible at localhost:5000. To find the docker contain
 
 ## 2. Running the application locally (for development purposes)
 
-Note: To run the application locally, you need a PostgreSQL instance on Docker and Python 3.10+ installed. Execute the commands from the first point. The required libraries are listed in the 'requirements.txt' file (they can be installed with `python3 -m pip install -r requirements.txt`).
+Note: To run the application locally, you need a PostgreSQL instance on Docker and Python 3.10+ installed. 
+Execute the commands from the first point. The required libraries are listed in the 'requirements.txt' file (they can be installed with `python3 -m pip install -r requirements.txt`).
 
 Once the postgres instance on Docker is running execute 
 
 `sudo docker inspect docker-compose_app_database_service_1` 
 
-and find the IPAddress value in "Networks" filed (probaly 172.20.0.2). Next edit the
-*docker-compose/.env* file and assign found ip address to the SERVICE_NAME field (see the commented line in the .env file). To run the application execute
+and find the IPAddress value in "Networks" field (e.g. 172.20.0.2). Next edit the
+*docker-compose/.env* file and assign found ip address to the SERVICE_NAME field (see the commented line in the .env file). Edit the flask_app/config.py file 
+regarding .env file (read the comment in the config.py file).
+
+To run the application execute
 
 `python3 main.py` 
 

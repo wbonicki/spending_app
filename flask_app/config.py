@@ -1,9 +1,9 @@
 import os
 from dotenv import load_dotenv
 
-# dotenv_file_path = os.path.join(os.path.dirname(__file__), "../", ".env")
+dotenv_file_path = os.path.join(os.path.dirname(__file__), "../", ".env")
 # comment above and uncomment below for local use
-dotenv_file_path = (os.path.join(os.path.dirname(__file__), '../docker-compose', '.env'))
+# dotenv_file_path = (os.path.join(os.path.dirname(__file__), '../docker-compose', '.env'))
 
 load_dotenv(dotenv_file_path)
 

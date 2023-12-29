@@ -2,40 +2,63 @@
 
 ## Description
 
-The main goal of the application was to learn/organize my knowledge about software design, flask framework,
-sqlalchemy and docker-compose tool. Frontend issues were not taken care of as they were not a goal of this project. 
+The main goal of the application is to learn and organize my knowledge about software design, the Flask framework, SQLAlchemy, and the Docker Compose tool. __Frontend issues were not taken care of as they were not a goal of this project.__ The application is still under a development and new features are planned to be added.
 
-The application is designed for saving  and analyzing user's spendings.
+The application is designed for saving  and analyzing user spendings.
 
-## 1. Running application on docker
+## 1. Runnning the application on Docker
 
-- download spending-app directory and run the following commmands:
+Download spending-app directory (e.g. using git clone) and execute the following commmands:
 
-cd spending-app/docker-compose
+`cd spending-app/docker-compose`
 
-sudo docker-compose build
-sudo docker-compose up -d
+`sudo docker-compose build`
 
-- application is running on localhost, port 5000
-- to check docker ip address run 
+`sudo docker-compose up -d`
 
-sudo docker logs docker-compose_spending_app_1 -f
+The application will be accessible at localhost:5000. To find the docker container ip address use the command 
+
+`sudo docker logs docker-compose_spending_app_1 -f`
 
 
-## 2. Running application locally 
+## 2. Running the application locally (for development purposes)
 
-Note: running the application locally needs postgres instance on docker. Commands from point number 1 must be run first. Required libraries are in requirements.txt file. The application running locally is on port 5001. 
+Note: To run the application locally, you need a PostgreSQL instance on Docker and Python 3.10+ installed. Execute the commands from the first point. The required libraries are listed in the 'requirements.txt' file (they can be installed with `python3 -m pip install -r requirements.txt`).
+
+Once the postgres instance on Docker is running execute 
+
+`sudo docker inspect docker-compose_app_database_service_1` 
+
+and find the IPAddress value in "Networks" filed (probaly 172.20.0.2). Next edit the
+*docker-compose/.env* file and assign found ip address to the SERVICE_NAME field (see the commented line in the .env file). To run the application execute
+
+`python3 main.py` 
+
+Then, open browser and go to localhost:5001
 
 ## 3. Usage of the application
 
-The navigation bar has three options. "Add new spending" option allows for adding a new spending as well as adding new category/removing existing category. There are two kinds of categories: the main category (e.g. food) and the subcategory that is more precise (e.g. fruits). A user must decide what kind of category he is adding.
+The navigation bar provides three links. The "Add new spending" allows users to add a new spending entry and also provides the ability to add a new main category or remove an existing category.
 
-Adding a spending
-dodać screeny
+![alt text](https://raw.githubusercontent.com/wbonicki/spending_app/main/screens/adding_new_spending.png)
+
+There are two types of categories: the main category (e.g. food) and the more specific subcategory (e.g. fruits). Users must determine the type of category they are adding.
+
+![alt text](https://raw.githubusercontent.com/wbonicki/spending_app/main/screens/adding_new_category.png)
+
+"Analyze spending" displays all spending the user has added.
+
+![alt text](https://raw.githubusercontent.com/wbonicki/spending_app/main/screens/all_spendings.png).
+
+A spending summary for a selected month can be viewed by choosing a date. It is also possible to view summaries for all months.
+
+![alt text](https://raw.githubusercontent.com/wbonicki/spending_app/main/screens/grouped_spending.png).
 
 ## 4. Running tests
 
-Go to spending-app/tests. Unittests are run with command "python -m unittest discover -v"
+Go to the spending-app/tests directory. Unittests can be run with the following command 
 
-# Conclusion
+`python3 -m unittest discover -v`
+
+
 

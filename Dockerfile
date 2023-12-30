@@ -12,5 +12,5 @@ COPY main.py .
 COPY docker-compose/.env .
 EXPOSE 5000
 
-RUN python -m unittest -v tests
+RUN python -m unittest discover tests
 ENTRYPOINT ["python", "main.py"]

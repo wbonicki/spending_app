@@ -31,8 +31,7 @@ Once the postgres instance on Docker is running execute
 `sudo docker inspect docker-compose_app_database_service_1` 
 
 and find the IPAddress value in "Networks" field (e.g. 172.20.0.2). Next edit the
-*docker-compose/.env* file and assign found ip address to the SERVICE_NAME field (see the commented line in the .env file). Edit the flask_app/config.py file 
-regarding .env file (read the comment in the config.py file).
+*docker-compose/.env* file and assign found ip address to the SERVICE_NAME field (see the commented line in the .env file).
 
 To run the application execute
 
@@ -60,9 +59,11 @@ A spending summary for a selected month can be viewed by choosing a date. It is 
 
 ## 4. Running tests
 
-Go to the spending-app/tests directory. Unittests can be run with the following command 
+Go to the spending-app/tests directory. Unittests can be run with the following command.
 
 `python3 -m unittest discover -v`
+
+Note: all unittests are run during the docker-compose build process (check the Dockerfile for details)
 
 
 

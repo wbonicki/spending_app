@@ -7,3 +7,4 @@ flask_wtf==1.1.1
 WTForms==3.0.1
 Flask-Migrate==4.0.4
 flask-bootstrap==3.3.7.1
+werkzeug==2.3.6

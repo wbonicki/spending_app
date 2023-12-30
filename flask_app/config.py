@@ -2,8 +2,9 @@ import os
 from dotenv import load_dotenv
 
 dotenv_file_path = os.path.join(os.path.dirname(__file__), "../", ".env")
-# comment above and uncomment below for local use
-# dotenv_file_path = (os.path.join(os.path.dirname(__file__), '../docker-compose', '.env'))
+docker_environment = os.path.isfile(dotenv_file_path) is True
+if docker_environment is False:
+    dotenv_file_path = (os.path.join(os.path.dirname(__file__), '../docker-compose', '.env'))
 
 load_dotenv(dotenv_file_path)
 
@@ -17,5 +18,4 @@ class Config:
     SQLALCHEMY_DATABASE_URI = (
         f"postgresql+psycopg2://{user}:{password}@{service_name}:{db_port}/{db_name}"
     )
-    print(SQLALCHEMY_DATABASE_URI)
     SECRET_KEY = "very_secret_key"

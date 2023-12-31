@@ -8,6 +8,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY flask_app flask_app
 COPY tests tests
+RUN rm tests/test_db.py
 COPY main.py .
 COPY docker-compose/.env .
 EXPOSE 5000

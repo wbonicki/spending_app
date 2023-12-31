@@ -1,6 +1,7 @@
 from typing import Optional
 import datetime
 from collections import defaultdict
+from flask_sqlalchemy import SQLAlchemy
 from flask_sqlalchemy.model import DefaultMeta
 from flask_app.enums import CategoryTypes
 
@@ -59,7 +60,7 @@ def transform_grouped_query_to_dict_type_one_year(
     return year_groups
 
 
-def get_one_year_grouped_spending(db_model: DefaultMeta):
+def get_one_year_grouped_spending(db: SQLAlchemy, db_model: DefaultMeta):
     grouped_spending = (
         db.session.query(
             func.extract("month", db_model.date),
@@ -77,7 +78,7 @@ def get_one_year_grouped_spending(db_model: DefaultMeta):
     return grouped_spending
 
 
-def get_one_month_grouped_spending(db_model: DefaultMeta, year, month):
+def get_one_month_grouped_spending(db: SQLAlchemy, db_model: DefaultMeta, year, month):
     grouped_spending = (
         db.session.query(
             db_model.main_category, db_model.subcategory, func.sum(db_model.price)

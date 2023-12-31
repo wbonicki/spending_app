@@ -57,7 +57,7 @@ def spending_analyzer():
     if form.validate_on_submit():
         year, month = form.year.data, form.month.data
         if month == ANALYZE_ALL:
-            grouped_spending = get_one_year_grouped_spending(Spending)
+            grouped_spending = get_one_year_grouped_spending(db, Spending)
             grouped_spending_for_template = (
                 transform_grouped_query_to_dict_type_one_year(grouped_spending)
             )
@@ -73,7 +73,7 @@ def spending_analyzer():
             ).all()
             if check_if_spending_exists is None:
                 flash("In provided month were no spendings!")
-            grouped_spending = get_one_month_grouped_spending(Spending, year, month)
+            grouped_spending = get_one_month_grouped_spending(db, Spending, year, month)
             grouped_spending_for_template = (
                 transform_grouped_query_to_dict_type_one_month(grouped_spending)
             )

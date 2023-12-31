@@ -59,11 +59,15 @@ A spending summary for a selected month can be viewed by choosing a date. It is 
 
 ## 4. Running tests
 
+Important: database operations are tested on test database which can be built with the *docker-compose.testdb.yml* file with the command
+
+`sudo docker-compose -f docker-compose.testdb.yml up -d`
+
 Go to the spending-app/tests directory. Unittests can be run with the following command.
 
 `python3 -m unittest discover -v`
 
-Note: all unittests are run during the docker-compose build process (check the Dockerfile for details)
+Note: all unittests except tests related to database operations are run during the docker-compose build process (check the Dockerfile for details).
 
 
 

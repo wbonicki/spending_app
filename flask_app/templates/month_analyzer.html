@@ -3,13 +3,13 @@
 
 {% block content %}
     <hr>
-    <h3 class="mt-4">Spending summary for {{ year }} - {{ month }}</h3>
+    <h3 class="mt-4">Spending summary for {{ year }} - {{ month }}.<br>Total sum: {{ one_month_total_sum }}</h3>
 
     <table class="table table-bordered">
         <thead>
             <tr>
-            {% for grouped_spending_category in grouped_spendings %}
-                <th> {{grouped_spending_category}}</th>
+            {% for grouped_spending_category, total_sum in one_month_main_categores_spending_sum.items() %}
+                <th> {{grouped_spending_category}}: {{total_sum}}</th>
             {% endfor %}
             </tr>
         </thead>

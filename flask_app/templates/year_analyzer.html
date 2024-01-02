@@ -5,26 +5,24 @@
     <hr>
     {% for month, main_categories in grouped_spendings_year.items() %}
     
-        <h3 class="mt-4">Spending summary for {{ year }} - {{ month }}</h3>
-
+        <h3 class="mt-4">Spending summary for {{ year }} - {{ month }}<br>Total sum: {{ one_year_months_total[month] }}</h3>
+        
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    {% for main_category_dict in main_categories %}
-                        {% for main_category in main_category_dict.keys() %}
-                            <th>{{ main_category }}</th>        
-                        {% endfor %}
+                    {% for main_category in main_categories.keys() %}
+                        <th>{{ main_category }}: {{ one_year_main_categores_spending_sum[month][main_category] }}</th>        
+                    {% endfor %}
                 </tr>
             </thead>
             <tbody>
-                    {% for main_category_details in main_category_dict.values() %}
-                        <td>
-                            {% for main_category_detail in main_category_details %}
-                                {{main_category_detail[0]}}: {{main_category_detail[1]}}<br>
-                            {%endfor%}
-                        </td>
-                    {% endfor %}
-                {%endfor%}
+                {% for main_category_details in main_categories.values() %}
+                    <td>
+                        {% for main_category_detail in main_category_details %}
+                            {{main_category_detail[0]}}: {{main_category_detail[1]}}<br>
+                        {%endfor%}
+                    </td>
+                {% endfor %}
             </tbody>
         </table>
 

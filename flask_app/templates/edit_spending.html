@@ -4,8 +4,6 @@
 
 {% block content %}
 
-<a href="/add_new_category" style="margin-right: 5px;">Add new category</a>
-<a href="/remove_existing_category" style="margin-right: 5px;">Remove existing category</a>
 <form action="" method="post" novalidate>
     {{ form.hidden_tag() }}
     <p>
@@ -21,13 +19,13 @@
         {{ form.subcategory.label }}<br>
         <select id="{{ form.subcategory.id }}" name="{{ form.subcategory.name }}">
             {% for value, label in form.subcategory.choices %}
-              <option value="{{ value }}">{{ label }}</option>
+              <option value="{{ value }}" selected>{{ label }}</option>
             {% endfor %}
         </select>
     </p>
     <p>
         {{ form.price.label }}<br>
-        {{ form.price(size=16)}}
+        {{ form.price(size=16, value=old_values["price"])}}
         {% if form.price.errors %}
             {% for error in form.price.errors %}
                 <span style="color: red;">[{{ error }}]</span>
@@ -36,7 +34,7 @@
     </p>
     <p>
         {{ form.date.label }}<br>
-        {{ form.date(size=16)}}
+        {{ form.date(size=16, value=old_values["date"])}}
     </p>
     <p>{{ form.submit() }}</p>
     

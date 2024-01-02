@@ -84,7 +84,7 @@ class TestDb(TestCase):
         )
         db.session.add(spending)
         db.session.commit()
-        result = get_one_year_grouped_spending(db, Spending)
+        result = get_one_year_grouped_spending(db, Spending, 2000)
         correct_result = {
             (Decimal("1"), "food", "meat", 300.0),
             (Decimal("2"), "car", "petrol", 250.0),

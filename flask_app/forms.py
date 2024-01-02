@@ -6,6 +6,7 @@ from wtforms import (
     SubmitField,
     FloatField,
     SelectField,
+    IntegerField
 )
 from wtforms.validators import ValidationError, DataRequired, NumberRange
 from flask_app.enums import CategoryTypes
@@ -14,24 +15,27 @@ from flask_app.utils import get_unique_queries_for_category_type
 from sqlalchemy import func
 
 
-ANALYZE_ALL = "analyze_all_months"
+ANALYZE_ONE_YEAR = "analyze_all_months"
 
 
-class SpendingForm(FlaskForm):
+class SpendingFormBase(FlaskForm):
     main_category = SelectField(validators=[DataRequired()])
     subcategory = SelectField(validators=[DataRequired()])
     price = FloatField("Price", validators=[DataRequired(), NumberRange(min=0.5)])
     date = DateField("Date", validators=[DataRequired()], format="%Y-%m-%d", default=date.today)
-    submit = SubmitField("Add Spending")
-
     def __init__(self):
-        super(SpendingForm, self).__init__()
+        super(SpendingFormBase, self).__init__()
         db_model = Category
         categories = get_unique_queries_for_category_type(db_model, CategoryTypes.MAIN_CATEGORY)
         subcategories = get_unique_queries_for_category_type(db_model, CategoryTypes.SUBCATEGORY)
         self.main_category.choices = [(c[0], c[0]) for c in categories]
         self.subcategory.choices = [(s[0], s[0]) for s in subcategories]
 
+class SpendingForm(SpendingFormBase):
+    submit = SubmitField("Add Spending")
+
+class EditSpendingForm(SpendingFormBase):
+    submit = SubmitField("Edit Spending")
 
 class GroupSpendingsForm(FlaskForm):
     year = SelectField(validators=[DataRequired()])
@@ -43,7 +47,7 @@ class GroupSpendingsForm(FlaskForm):
         unique_years = Spending.query.with_entities(func.extract("year", Spending.date)).distinct().all()
         unique_months = Spending.query.with_entities(func.extract("month", Spending.date)).distinct().all()
         self.year.choices = [(i[0], i[0]) for i in unique_years]
-        self.month.choices = [(i[0], i[0]) for i in unique_months] + [(ANALYZE_ALL, ANALYZE_ALL)]
+        self.month.choices = [(i[0], i[0]) for i in unique_months] + [(ANALYZE_ONE_YEAR, ANALYZE_ONE_YEAR)]
 
 
 class NewCategoryForm(FlaskForm):

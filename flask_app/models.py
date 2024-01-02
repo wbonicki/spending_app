@@ -9,6 +9,13 @@ class Spending(db.Model):
     price = db.Column(db.Float, db.CheckConstraint("price > 0"))
     date = db.Column(db.Date, nullable=False)
 
+    def to_dict(self):
+        return {
+            "main_category": self.main_category,
+            "subcategory": self.subcategory,
+            "price": self.price,
+            "date": self.date,
+        }
 
 class Category(db.Model):
     __tablename__ = "categories"

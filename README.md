@@ -31,13 +31,13 @@ Once the postgres instance on Docker is running execute
 `sudo docker inspect docker-compose_app_database_service_1` 
 
 and find the IPAddress value in "Networks" field (e.g. 172.20.0.2). Next edit the
-*docker-compose/.env* file and assign found ip address to the SERVICE_NAME field (see the commented line in the .env file).
+*docker-compose/.env* file and assign found ip address to the SERVICE_NAME field (see the commented line in the .env file). Change the port in the **main.py** file to other than 5000.
 
 To run the application execute
 
 `python3 main.py` 
 
-Then, open browser and go to localhost:5001
+Then, open browser and go to localhost:<selected port> (e.g. localhost:5001)
 
 ## 3. Usage of the application
 
@@ -49,7 +49,7 @@ There are two types of categories: the main category (e.g. food) and the more sp
 
 ![alt text](https://raw.githubusercontent.com/wbonicki/spending_app/main/screens/adding_new_category.png)
 
-"Analyze spending" displays all spending the user has added.
+"Analyze spending" displays all spending the user has added. Every spending can be removed or edited.
 
 ![alt text](https://raw.githubusercontent.com/wbonicki/spending_app/main/screens/all_spendings.png).
 

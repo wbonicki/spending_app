@@ -1,3 +1,4 @@
+import functools
 from typing import Optional
 import datetime
 from collections import defaultdict
@@ -45,6 +46,26 @@ def transform_grouped_query_to_dict_type_one_month(
     return grouped_spending_for_template
 
 
+def get_main_category_total_sum(
+    one_month_summary: dict[str, list[tuple]]
+) -> dict[str, float]:
+    main_category_summary = dict()
+    for main_category, main_category_spending in one_month_summary.items():
+        main_category_summary[main_category] = functools.reduce(
+            lambda x, y: x + y[1], main_category_spending, 0
+        )
+    return main_category_summary
+
+
+def get_main_category_total_summary_for_one_year(
+    one_year_summary: groupedForOneYear,
+) -> dict[int, dict[str, float]]:
+    main_category_summary = dict()
+    for month, one_month_summary in one_year_summary.items():
+        main_category_summary[month] = get_main_category_total_sum(one_month_summary)
+    return main_category_summary
+
+
 def transform_grouped_query_to_dict_type_one_year(
     grouped_spending: list[tuple],
 ) -> groupedForOneYear:
@@ -52,15 +73,15 @@ def transform_grouped_query_to_dict_type_one_year(
     for s in grouped_spending:
         month, *details = s
         month_groups_helper[int(month)].append(details)
-    year_groups = defaultdict(list)
+    year_groups = defaultdict(dict)
     for month, details in month_groups_helper.items():
-        year_groups[month].append(
+        year_groups[month].update(
             transform_grouped_query_to_dict_type_one_month(details)
         )
     return year_groups
 
 
-def get_one_year_grouped_spending(db: SQLAlchemy, db_model: DefaultMeta):
+def get_one_year_grouped_spending(db: SQLAlchemy, db_model: DefaultMeta, year):
     grouped_spending = (
         db.session.query(
             func.extract("month", db_model.date),
@@ -73,6 +94,7 @@ def get_one_year_grouped_spending(db: SQLAlchemy, db_model: DefaultMeta):
             db_model.main_category,
             db_model.subcategory,
         )
+        .filter(func.extract("year", db_model.date) == year)
         .all()
     )
     return grouped_spending
